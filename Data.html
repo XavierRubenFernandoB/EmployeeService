@@ -10,8 +10,9 @@
         <div class="well">
             <input id="btnLoadEmployees" class="btn btn-success"
                    type="button" value="Load Employees" />
+            <span id="spnUserName" class="text-muted"></span>
             <input id="btnSignout" class="btn btn-success pull-right"
-                   type="button" value="Sign out"/>
+                   type="button" value="Sign out" />
         </div>
         <div id="divData" class="well hidden">
             <table class="table table-bordered" id="tblData">
@@ -62,6 +63,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('#spnUserName').text(sessionStorage.getItem("loginusername"));
+
             if (sessionStorage.getItem('accessToken') == null) {
                 window.location.href = "Login.html";
             }
@@ -114,5 +118,7 @@
             });
         });
     </script>
+
+    
 </body>
 </html>

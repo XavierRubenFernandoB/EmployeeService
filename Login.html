@@ -56,12 +56,12 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
             });
 
             $('#btnLogin').click(function () {
+                
                 $.ajax({
                     // Post username, password & the grant type to /token
                     url: '/token',
@@ -78,11 +78,13 @@
                     // this page yet. So please add it to the
                     // EmployeeService project before running it
                     success: function (response) {
-                        //$('#divErrorText').text(response.access_token);
+                        //$('#divErrorText').text(JSON.stringify(response));
                         //$('#divError').show('fade');
 
                         sessionStorage.setItem("accessToken", response.access_token);
-                        //localStorage.setItem("accessToken", response.access_token); //can also be used if we require session to be maintained after closing browser window
+                        sessionStorage.setItem("loginusername", response.userName);
+                        //can also be used if we require session to be maintained after closing browser window
+                        //localStorage.setItem("accessToken", response.access_token);
 
                         window.location.href = "Data.html";
                     },
@@ -95,5 +97,6 @@
             });
         });
     </script>
+    
 </body>
 </html>
