@@ -7,7 +7,8 @@ using System.Web.Http;
 
 namespace EmployeeService.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [RoutePrefix("api/values")]
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -17,14 +18,31 @@ namespace EmployeeService.Controllers
         }
 
         // GET api/values/5
+        //[Route(Name = "GetStudentById")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [Route("{id}/GetMyValue")]
+        public string GetValue(int id)
         {
+            return "Get My Value";
+        }
+
+        [Route("~/api/GetMyValue2/{id:int:min(1)}")] //override the Route Prefix, specify routing constraints
+        public string GetValue2(int id)
+        {
+            return "Get My Value 2";
+        }
+
+        // POST api/values
+        public HttpResponseMessage Post([FromBody]int i) //NEED FOR generating links using route names
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Headers.Location = new Uri(Request.RequestUri + "/" + i.ToString());
+            //response.Headers.Location = new Uri(Url.Link("GetStudentById", new { id = i } ));
+            return response;
         }
 
         // PUT api/values/5
